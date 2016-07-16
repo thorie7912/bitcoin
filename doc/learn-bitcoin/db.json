@@ -1,0 +1,25 @@
+{
+  "1": {
+    "q": "What is a `class`?",
+    "tags": ["c++", "basic"],
+    "a": "A C++ `class` is a structure that combines properties and operations. For example, a class named `Dog` could have a name property 'Fido' and an operation called 'bark()' that tells Fido to make a sound.",
+    "see": [
+      {
+        "name": "C++ classes on Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/C%2B%2B_classes"
+      }
+    ]
+  },
+  "2": {
+    "q": "What does `: public ...` do?",
+    "tags": ["c++", "basic"]
+  },
+  "3": {
+    "q": "Why does `CAddrInfo` inherit from `CAddress`?",
+    "tags": ["bitcoin", "moderate", "design"]
+  },
+  "4": {
+    "q": "What is `CAddrInfo` used for?",
+    "tags": ["bitcoin", "moderate", "networking"]
+  }
+}

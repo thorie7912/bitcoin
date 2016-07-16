@@ -21,7 +21,7 @@
 /**
  * Extended statistics about a CAddress
  */
-class CAddrInfo : public CAddress
+class CAddrInfo : public CAddress // @q1 @q2 @q3 @q4
 {
 
 

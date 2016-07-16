@@ -1,0 +1,82 @@
+.left-pane {
+  display: table-cell;
+  width: 60%;
+}
+
+.right-pane {
+  display: table-cell;
+}
+
+.q-zone {
+  float: left;
+  display: table-cell;
+  position: absolute;
+}
+
+.q-area {
+  background-color: lightgray;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+.q-count {
+  background-color: red;
+  color: yellow;
+  border-radius: 5px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.all-tags {
+  background-color: #eee;
+  border-radius: 2px;
+  padding: 5px 10px;
+  color: gray;
+}
+
+.question {
+  padding: 15px 0px;
+  font-size: large;
+}
+
+.question a {
+  text-decoration: none;
+}
+
+.answer {
+  padding: 15px 0px;
+  font-size: normal;
+}
+
+.expand {
+  display: none;
+  padding-left: 2em;
+}
+
+.q-code {
+  font-family: monospace;
+  background-color: lightgoldenrodyellow;
+  color: green;
+  padding: 0px 0.3em;
+  border-radius: 0.3em;
+}
+
+.triangle {
+  color: lightblue;
+}
+
+.tag {
+  font-family: monospace;
+  background-color: lightblue;
+  color: white;
+  padding: 0px 0.3em;
+  border-radius: 0.3em;
+  margin: 0px 0.3em;
+  font-size: small;
+}
+
+.see {
+  font-style: italic;
+}
