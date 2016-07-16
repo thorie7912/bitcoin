@@ -21,5 +21,27 @@
   "4": {
     "q": "What is `CAddrInfo` used for?",
     "tags": ["bitcoin", "moderate", "networking"]
+  },
+  "5": {
+    "q": "What is `#ifndef`?"
+  },
+  "6": {
+    "q": "What is ADDRMAN an abbreviation/shorthand for?"
+  },
+  "7": {
+    "q": "What are extended statistics?"
+  },
+  "8": {
+    "q": "What is a `CAddress`?"
+  },
+  "9": {
+    "q": "What is a try? What is being attempted?"
+  },
+  "10": {
+    "q": "What does it mean to be a 'last try by us'?"
+  },
+  "11": {
+    "q": "What does 'memory only' mean?"
   }
+  
 }

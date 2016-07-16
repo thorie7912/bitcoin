@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   $('.line').click(function(event) {
-      var questionIds = $(this).find('.comment').attr('data');
+      var questionIds = $(this).find('.q-comment').attr('data');
       if (questionIds) {
           $('.line').removeClass('highlight');
           $(this).addClass('highlight');

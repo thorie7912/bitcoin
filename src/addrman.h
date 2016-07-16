@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_ADDRMAN_H
-#define BITCOIN_ADDRMAN_H
+#ifndef BITCOIN_ADDRMAN_H // @q5 @q6
+#define BITCOIN_ADDRMAN_H // @q5 @q6
 
 #include "netbase.h"
 #include "protocol.h"
@@ -19,7 +19,7 @@
 #include <vector>
 
 /**
- * Extended statistics about a CAddress
+ * Extended statistics about a CAddress // @q7 @q8
  */
 class CAddrInfo : public CAddress // @q1 @q2 @q3 @q4
 {
@@ -27,7 +27,7 @@ class CAddrInfo : public CAddress // @q1 @q2 @q3 @q4
 
 public:
     //! last try whatsoever by us (memory only)
-    int64_t nLastTry;
+    int64_t nLastTry; // @q9 @q10 @q11
 
     //! last counted attempt (memory only)
     int64_t nLastCountAttempt;
