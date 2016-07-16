@@ -23,5 +23,22 @@ Total annotations: <?=$totalAnnotations?><br>
 
 <h2>View Annotated Files</h2>
 
+<ul>
+<li>
 <a href='html/addrman_8h_source.html'>html/addrman_8h_source.html</a>
+</li>
+</ul>
+
+<br>
+
+<img src="images/annotated.jpg">
+
+<br>
+The parser will detect 4 questions associated with the given line. If you click the line, the questions will appear on the right side.
+
+<img src="images/linkedsource.jpg">
+
+<br>
+
+You can find all the source code on github <a href='https://github.com/thorie7912/bitcoin/tree/learn-bitcoin'>https://github.com/thorie7912/bitcoin/tree/learn-bitcoin</a>
 
