@@ -23,10 +23,23 @@
     "tags": ["bitcoin", "moderate", "networking"]
   },
   "5": {
-    "q": "What is `#ifndef`?"
+    "q": "What is `#ifndef`?",
+    "tags": ["c++"]
   },
   "6": {
-    "q": "What is ADDRMAN an abbreviation/shorthand for?"
+    "q": "What is ADDRMAN an abbreviation/shorthand for?",
+    "a": "ADDress MANager, or more specifically in this case Stochastical (IP) address manager. <p>In older versions of bitcoin, all addresses ever seen were kept on-disk and in-memory. Instead of this, we keep a limited number of addresses in memory with some strategies to protect against a Sybil attack.</p>",
+    "tags": ["bitcoin", "networking", "security"],
+    "see": [
+      {
+        "name": "Pieter Wuille's mailing list post on CAddrMan: Stochastic IP address manager",
+        "url": "https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2012-January/001100.html"
+      },
+      {
+        "name": "Sybil attack on Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sybil_attack"
+      }
+    ]
   },
   "7": {
     "q": "What are extended statistics?"
@@ -42,6 +55,9 @@
   },
   "11": {
     "q": "What does 'memory only' mean?"
+  },
+  "12": {
+    "q": "What is `#define`?"
   }
   
 }
