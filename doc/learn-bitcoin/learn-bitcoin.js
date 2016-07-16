@@ -15,7 +15,7 @@ $(document).ready(function() {
           screenTop = rightPaneTop;
       }
       $('.q-zone').css('top', screenTop);
-      $('.q-zone').load('http://localhost/learn-bitcoin/learn-bitcoin/get-questions.php?q='+questionIds);
+      $('.q-zone').load('../get-questions.php?q='+questionIds);
   });
  
       

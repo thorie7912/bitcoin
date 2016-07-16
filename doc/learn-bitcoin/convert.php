@@ -27,7 +27,7 @@ foreach (glob("../doxygen/html/*_source.html") as $filename) {
         $count = count($matches[1]);
         $fgc = preg_replace("#// @q.*?<#", "<span class=\"q-count\">$count</span><", $fgc);
 
-        file_put_contents($filename . "-new", $fgc);
+        file_put_contents($filename, $fgc);
     }
 }
 
