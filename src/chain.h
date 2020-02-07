@@ -151,6 +151,7 @@ public:
 
     //! Which # file this block is stored in (blk?????.dat)
     int nFile{0};
+    int nSpan{0};
 
     //! Byte offset within blk?????.dat where this block's data is stored
     unsigned int nDataPos{0};
@@ -204,6 +205,7 @@ public:
         if (nStatus & BLOCK_HAVE_DATA) {
             ret.nFile = nFile;
             ret.nPos  = nDataPos;
+            ret.nSpan = nSpan;
         }
         return ret;
     }
@@ -213,6 +215,7 @@ public:
         if (nStatus & BLOCK_HAVE_UNDO) {
             ret.nFile = nFile;
             ret.nPos  = nUndoPos;
+            ret.nSpan = nSpan;
         }
         return ret;
     }
