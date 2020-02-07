@@ -140,7 +140,7 @@ namespace {
     CCriticalSection cs_LastBlockFile;
     std::vector<CBlockFileInfo> vinfoBlockFile;
     int nLastBlockFile = 0;
-    int nLastBlockSpan = 1;
+    int nLastBlockSpan = 4;
     /** Global flag to indicate we should check to see if there are
      *  block/undo files that should be deleted.  Set on startup
      *  or if we allocate more file space when we're in prune mode
@@ -3200,6 +3200,7 @@ static bool FindBlockPos(FlatFilePos &pos, unsigned int nAddSize, unsigned int n
         }
         pos.nFile = nFile;
         pos.nPos = vinfoBlockFile[nFile].nSize;
+        pos.nSpan = 4;
     }
 
     if ((int)nFile != nLastBlockFile) {
@@ -3234,6 +3235,7 @@ static bool FindBlockPos(FlatFilePos &pos, unsigned int nAddSize, unsigned int n
 static bool FindUndoPos(CValidationState &state, int nFile, FlatFilePos &pos, unsigned int nAddSize)
 {
     pos.nFile = nFile;
+    pos.nSpan = 4;
 
     LOCK(cs_LastBlockFile);
 
@@ -4118,7 +4120,7 @@ bool static LoadBlockIndexDB(const CChainParams& chainparams) EXCLUSIVE_LOCKS_RE
     }
     for (std::set<int>::iterator it = setBlkDataFiles.begin(); it != setBlkDataFiles.end(); it++)
     {
-        FlatFilePos pos(*it, 0, 1);
+        FlatFilePos pos(*it, 0, gArgs.GetArg("-span", 4));
         if (CAutoFile(OpenBlockFile(pos, true), SER_DISK, CLIENT_VERSION).IsNull()) {
             return false;
         }

@@ -115,11 +115,11 @@ BOOST_AUTO_TEST_CASE(flatfile_flush)
     seq.Allocate(FlatFilePos(0, 0, 1), 1, out_of_space);
 
     // Flush without finalize should not truncate file.
-    seq.Flush(FlatFilePos(0, 1));
+    seq.Flush(FlatFilePos(0, 1, 1));
     BOOST_CHECK_EQUAL(fs::file_size(seq.FileName(FlatFilePos(0, 1, 1))), 100);
 
     // Flush with finalize should truncate file.
-    seq.Flush(FlatFilePos(0, 1), true);
+    seq.Flush(FlatFilePos(0, 1, 1), true);
     BOOST_CHECK_EQUAL(fs::file_size(seq.FileName(FlatFilePos(0, 1, 1))), 1);
 }
 

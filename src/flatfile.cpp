@@ -27,7 +27,7 @@ std::string FlatFilePos::ToString() const
 
 fs::path FlatFileSeq::FileName(const FlatFilePos& pos) const
 {
-    return m_dir / strprintf("span%2dof%2d/%s%05u.dat", pos.nFile % pos.nSpan, pos.nSpan, m_prefix, pos.nFile);
+    return m_dir / strprintf("part%02dof%02d/%s%05u.dat", (pos.nFile % pos.nSpan) + 1, pos.nSpan, m_prefix, pos.nFile);
 }
 
 FILE* FlatFileSeq::Open(const FlatFilePos& pos, bool read_only)

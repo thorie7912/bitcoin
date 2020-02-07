@@ -153,6 +153,7 @@ public:
 
     //! Which # file this block is stored in (blk?????.dat)
     int nFile;
+    int nSpan;
 
     //! Byte offset within blk?????.dat where this block's data is stored
     unsigned int nDataPos;
@@ -195,6 +196,7 @@ public:
         pskip = nullptr;
         nHeight = 0;
         nFile = 0;
+        nSpan = 4;
         nDataPos = 0;
         nUndoPos = 0;
         nChainWork = arith_uint256();
@@ -232,6 +234,7 @@ public:
         if (nStatus & BLOCK_HAVE_DATA) {
             ret.nFile = nFile;
             ret.nPos  = nDataPos;
+            ret.nSpan = nSpan;
         }
         return ret;
     }
@@ -241,6 +244,7 @@ public:
         if (nStatus & BLOCK_HAVE_UNDO) {
             ret.nFile = nFile;
             ret.nPos  = nUndoPos;
+            ret.nSpan = nSpan;
         }
         return ret;
     }
