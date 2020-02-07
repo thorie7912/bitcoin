@@ -1387,7 +1387,7 @@ static const std::string TransactionDescriptionString()
            "    \"time\": xxx,                               (numeric) The transaction time expressed in " + UNIX_EPOCH_TIME + ".\n"
            "    \"timereceived\": xxx,                       (numeric) The time received expressed in " + UNIX_EPOCH_TIME + ".\n"
            "    \"comment\": \"...\",                          (string) If a comment is associated with the transaction, only present if not empty.\n"
-           "    \"bip125-replaceable\": \"yes|no|unknown\",    (string) Whether this transaction could be replaced due to BIP125 (replace-by-fee);\n"
+           "    \"bip125-replaceable\" : \"str\",              (string) (\"yes|no|unknown\") Whether this transaction could be replaced due to BIP125 (replace-by-fee);\n"
            "                                                     may be unknown for unconfirmed transactions not in the mempool\n";
 }
 
@@ -1535,11 +1535,12 @@ static UniValue listsinceblock(const JSONRPCRequest& request)
             "                                                           (not guaranteed to work on pruned nodes)"},
                 },
                 RPCResult{
-            "{\n"
-            "  \"transactions\": [\n"
+            "{                             (json object)\n"
+            "  \"transactions\" : [          (json array)\n"
+            "  {                           (json object)\n"
             "    \"involvesWatchonly\": xxx, (bool) Only returns true if imported addresses were involved in transaction.\n"
-            "    \"address\":\"address\",    (string) The bitcoin address of the transaction.\n"
-            "    \"category\":               (string) The transaction category.\n"
+            "    \"address\" : \"str\",        (string) The bitcoin address of the transaction.\n"
+            "    \"category\" : \"str\",       (string) The transaction category.\n"
             "                \"send\"                  Transactions sent.\n"
             "                \"receive\"               Non-coinbase transactions received.\n"
             "                \"generate\"              Coinbase transactions received with more than 100 confirmations.\n"
@@ -1551,15 +1552,16 @@ static UniValue listsinceblock(const JSONRPCRequest& request)
             "    \"fee\": x.xxx,             (numeric) The amount of the fee in " + CURRENCY_UNIT + ". This is negative and only available for the 'send' category of transactions.\n"
             + TransactionDescriptionString()
             + "    \"abandoned\": xxx,         (bool) 'true' if the transaction has been abandoned (inputs are respendable). Only available for the 'send' category of transactions.\n"
-            "    \"comment\": \"...\",       (string) If a comment is associated with the transaction.\n"
             "    \"label\" : \"label\"       (string) A comment for the address/transaction, if any\n"
             "    \"to\": \"...\",            (string) If a comment to is associated with the transaction.\n"
+            "   },\n"
+            "   ...\n"
             "  ],\n"
-            "  \"removed\": [\n"
+            "  \"removed\": [              (json array)\n"
             "    <structure is the same as \"transactions\" above, only present if include_removed=true>\n"
             "    Note: transactions that were re-added in the active chain will appear as-is in this array, and may thus have a positive confirmation count.\n"
             "  ],\n"
-            "  \"lastblock\": \"lastblockhash\"     (string) The hash of the block (target_confirmations-1) from the best block on the main chain. This is typically used to feed back into listsinceblock the next time you call it. So you would generally use a target_confirmations of say 6, so you will be continually re-notified of transactions until they've reached 6 confirmations plus any new ones\n"
+            "  \"lastblock\": \"hex\"        (string) The hash of the block (target_confirmations-1) from the best block on the main chain. This is typically used to feed back into listsinceblock the next time you call it. So you would generally use a target_confirmations of say 6, so you will be continually re-notified of transactions until they've reached 6 confirmations plus any new ones\n"
             "}\n"
                 },
                 RPCExamples{
@@ -3766,18 +3768,18 @@ UniValue getaddressinfo(const JSONRPCRequest& request)
             "                                                         getaddressinfo output fields for the embedded address, excluding metadata (timestamp, hdkeypath,\n"
             "                                                         hdseedid) and relation to the wallet (ismine, iswatchonly).\n"
             "  \"iscompressed\" : true|false,        (boolean, optional) If the pubkey is compressed.\n"
-            "  \"label\" :  \"label\"                  (string) The label associated with the address. Defaults to \"\". Equivalent to the label name in the labels array below.\n"
+            "  \"label\" :  \"label\"                  (string) DEPRECATED. The label associated with the address. Defaults to \"\". Replaced by the labels array below.\n"
             "  \"timestamp\" : timestamp,            (number, optional) The creation time of the key, if available, expressed in " + UNIX_EPOCH_TIME + ".\n"
             "  \"hdkeypath\" : \"keypath\"             (string, optional) The HD keypath, if the key is HD and available.\n"
             "  \"hdseedid\" : \"<hash160>\"            (string, optional) The Hash160 of the HD seed.\n"
             "  \"hdmasterfingerprint\" : \"<hash160>\" (string, optional) The fingerprint of the master key.\n"
-            "  \"labels\"                            (json object) An array of labels associated with the address. Currently limited to one label but returned\n"
-            "                                               as an array to keep the API stable if multiple labels are enabled in the future.\n"
+            "  \"labels\"                            (array) Array of labels associated with the address. Currently limited to one label but returned\n"
+            "                                              as an array to keep the API stable if multiple labels are enabled in the future.\n"
             "    [\n"
-            "      \"label name\" (string) The label name. Defaults to \"\". Equivalent to the label field above.\n\n"
+            "      \"label name\" (string) The label name. Defaults to \"\".\n"
             "      DEPRECATED, will be removed in 0.21. To re-enable, launch bitcoind with `-deprecatedrpc=labelspurpose`:\n"
-            "      { (json object of label data)\n"
-            "        \"name\" : \"label name\" (string) The label name. Defaults to \"\". Equivalent to the label field above.\n"
+            "      {\n"
+            "        \"name\" : \"label name\" (string) The label name. Defaults to \"\".\n"
             "        \"purpose\" : \"purpose\" (string) The purpose of the associated address (send or receive).\n"
             "      }\n"
             "    ]\n"
@@ -3821,10 +3823,10 @@ UniValue getaddressinfo(const JSONRPCRequest& request)
     UniValue detail = DescribeWalletAddress(pwallet, dest);
     ret.pushKVs(detail);
 
-    // Return label field if existing. Currently only one label can be
-    // associated with an address, so the label should be equivalent to the
+    // DEPRECATED: Return label field if existing. Currently only one label can
+    // be associated with an address, so the label should be equivalent to the
     // value of the name key/value pair in the labels array below.
-    if (pwallet->mapAddressBook.count(dest)) {
+    if ((pwallet->chain().rpcEnableDeprecated("label")) && (pwallet->mapAddressBook.count(dest))) {
         ret.pushKV("label", pwallet->mapAddressBook[dest].name);
     }
 
@@ -3847,12 +3849,11 @@ UniValue getaddressinfo(const JSONRPCRequest& request)
     // associated with an address, but we return an array so the API remains
     // stable if we allow multiple labels to be associated with an address in
     // the future.
-    //
-    // DEPRECATED: The previous behavior of returning an array containing a JSON
-    // object of `name` and `purpose` key/value pairs has been deprecated.
     UniValue labels(UniValue::VARR);
     std::map<CTxDestination, CAddressBookData>::iterator mi = pwallet->mapAddressBook.find(dest);
     if (mi != pwallet->mapAddressBook.end()) {
+        // DEPRECATED: The previous behavior of returning an array containing a
+        // JSON object of `name` and `purpose` key/value pairs is deprecated.
         if (pwallet->chain().rpcEnableDeprecated("labelspurpose")) {
             labels.push_back(AddressBookDataToJSON(mi->second, true));
         } else {
@@ -4080,10 +4081,9 @@ UniValue walletprocesspsbt(const JSONRPCRequest& request)
                     {"bip32derivs", RPCArg::Type::BOOL, /* default */ "false", "If true, includes the BIP 32 derivation paths for public keys if we know them"},
                 },
                 RPCResult{
-            "{\n"
-            "  \"psbt\" : \"value\",          (string) The base64-encoded partially signed transaction\n"
+            "{                            (json object)\n"
+            "  \"psbt\" : \"str\",            (string) The base64-encoded partially signed transaction\n"
             "  \"complete\" : true|false,   (boolean) If the transaction has a complete set of signatures\n"
-            "  ]\n"
             "}\n"
                 },
                 RPCExamples{
