@@ -150,7 +150,8 @@ public:
     int nHeight{0};
 
     //! Which # file this block is stored in (blk?????.dat)
-    int nFile{0};
+    int nFile;
+    int nSpan;
 
     //! Byte offset within blk?????.dat where this block's data is stored
     unsigned int nDataPos{0};
@@ -184,7 +185,31 @@ public:
     int32_t nSequenceId{0};
 
     //! (memory only) Maximum nTime in the chain up to and including this block.
-    unsigned int nTimeMax{0};
+    unsigned int nTimeMax;
+
+    void SetNull()
+    {
+        phashBlock = nullptr;
+        pprev = nullptr;
+        pskip = nullptr;
+        nHeight = 0;
+        nFile = 0;
+        nSpan = 4;
+        nDataPos = 0;
+        nUndoPos = 0;
+        nChainWork = arith_uint256();
+        nTx = 0;
+        nChainTx = 0;
+        nStatus = 0;
+        nSequenceId = 0;
+        nTimeMax = 0;
+
+        nVersion       = 0;
+        hashMerkleRoot = uint256();
+        nTime          = 0;
+        nBits          = 0;
+        nNonce         = 0;
+    }
 
     CBlockIndex()
     {
@@ -204,6 +229,7 @@ public:
         if (nStatus & BLOCK_HAVE_DATA) {
             ret.nFile = nFile;
             ret.nPos  = nDataPos;
+            ret.nSpan = nSpan;
         }
         return ret;
     }
@@ -213,6 +239,7 @@ public:
         if (nStatus & BLOCK_HAVE_UNDO) {
             ret.nFile = nFile;
             ret.nPos  = nUndoPos;
+            ret.nSpan = nSpan;
         }
         return ret;
     }

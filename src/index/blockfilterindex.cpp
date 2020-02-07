@@ -125,6 +125,7 @@ bool BlockFilterIndex::Init()
         // If the DB_FILTER_POS is not set, then initialize to the first location.
         m_next_filter_pos.nFile = 0;
         m_next_filter_pos.nPos = 0;
+        m_next_filter_pos.nSpan = 4;
     }
     return BaseIndex::Init();
 }
